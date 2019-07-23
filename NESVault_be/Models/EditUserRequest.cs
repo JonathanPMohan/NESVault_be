@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NESVault_be.Models
 {
-    public class CreateUserRequest
+    public class EditUserRequest
     {
         public int Id { get; set; }
         public string UserName { get; set; }
