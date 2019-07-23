@@ -60,7 +60,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myCartSelectedGenre = db.Query<MyCart>("select id, name, releaseDate, loose, cib, new from carts where genre = @genre", new { genre });
+                var myCartSelectedGenre = db.Query<MyCart>("select id, userId, cartsId, imageUrl from myCarts where genre = @genre", new { genre });
 
 
                 return myCartSelectedGenre;
