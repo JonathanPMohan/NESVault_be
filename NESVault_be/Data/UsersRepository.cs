@@ -1,11 +1,12 @@
-﻿using Dapper;
-using Microsoft.Extensions.Options;
-using NESVault_be.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using NESVault_be.Models;
+using NESVault_be.Data;
+using System.Data.SqlClient;
+using Dapper;
+using Microsoft.Extensions.Options;
 
 namespace NESVault_be.Data
 {
