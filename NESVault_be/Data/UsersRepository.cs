@@ -112,7 +112,7 @@ namespace NESVault_be.Data
             }
             throw new Exception("NESVault User Not Created");
         }
-        
+
         // DELETE USER //
         public void DeleteUser(int id)
         {
@@ -133,13 +133,15 @@ namespace NESVault_be.Data
                     throw new Exception("Error Deleting The NESVault User");
                 }
             }
-            
 
-                public EditUserRequest UpdateUser(EditUserRequest updatedUserObj)
-                {
-                    using (var db = new SqlConnection(_connectionString))
-                    {
-                        var editUserQuery = @"
+
+        }
+        // EDIT USER //
+        public EditUserRequest UpdateUser(EditUserRequest updatedUserObj)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var editUserQuery = @"
                     UPDATE 
                       [Users] 
                     SET 
@@ -152,16 +154,16 @@ namespace NESVault_be.Data
                     WHERE 
                       id = @id";
 
-                        var rowsAffected = db.Execute(editUserQuery, updatedUserObj);
+                var rowsAffected = db.Execute(editUserQuery, updatedUserObj);
 
-                        if (rowsAffected == 1)
-                        {
-                            return updatedUserObj;
-                        }
-                        throw new Exception("Could Not Update NESVault User");
-                    }
+                if (rowsAffected == 1)
+                {
+                    return updatedUserObj;
                 }
+                throw new Exception("Could Not Update NESVault User");
             }
         }
+
     }
+}
 
