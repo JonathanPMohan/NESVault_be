@@ -43,8 +43,8 @@ namespace NESVault_be.Data
             throw new Exception("No NESVault Users Found");
         }
 
-        // GET USER BY ID //
-        public User GetUserById(string id)
+        // GET USER BY FIREBASE ID //
+        public User GetUserByFireBaseId(string id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -65,7 +65,7 @@ namespace NESVault_be.Data
         }
 
         // GET USER BY USER ID //
-        public User GetUserByUserId(string id)
+        public User GetUserByUserId(int id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -136,6 +136,7 @@ namespace NESVault_be.Data
 
 
         }
+
         // EDIT USER //
         public EditUserRequest UpdateUser(EditUserRequest updatedUserObj)
         {

@@ -2,9 +2,10 @@
 
 namespace NESVault_be.Validators
 {
-    public class UserRequestValidator
+    public class EditUserValidator
     {
-        public bool Validate(CreateUserRequest requestToValidate)
+
+        public bool Validate(EditUserRequest requestToValidate)
         {
             return !(string.IsNullOrEmpty(requestToValidate.FireBaseUid)
                 || string.IsNullOrEmpty(requestToValidate.FirstName)
@@ -12,5 +13,6 @@ namespace NESVault_be.Validators
                 || string.IsNullOrEmpty(requestToValidate.UserName)
                 || string.IsNullOrEmpty(requestToValidate.Email));
         }
+
     }
 }
