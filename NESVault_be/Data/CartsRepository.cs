@@ -41,7 +41,7 @@ namespace NESVault_be.Data
                 }
             }
 
-            throw new Exception("Sorry. No Parting Pets Product Was Created.");
+            throw new Exception("Sorry. No NESVault Cart Was Created.");
         }
 
 
@@ -127,7 +127,6 @@ namespace NESVault_be.Data
                 var updateQuery = @"Update Carts
                                 Set Name = @name,
                                 Genre = @genre,
-                                CategoryId = @categoryId,
                                 ReleaseDate = @releaseDate,
                                 Loose = @loose,
                                 Cib = @cib,
