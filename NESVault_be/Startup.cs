@@ -33,13 +33,13 @@ namespace NESVault_be
                 .AddJwtBearer(options =>
                 {
                    options.IncludeErrorDetails = true;
-                   options.Authority = "https://securetoken.google.com/NesVault";
+                   options.Authority = "https://securetoken.google.com/nesvault-c74a0";
                    options.TokenValidationParameters = new TokenValidationParameters
                    {
                        ValidateIssuer = true,
-                       ValidIssuer = "https://securetoken.google.com/NesVault",
+                       ValidIssuer = "https://securetoken.google.com/nesvault-c74a0",
                        ValidateAudience = true,
-                       ValidAudience = "NesVault",
+                       ValidAudience = "nesvault-c74a0",
                        ValidateLifetime = true
                    };
                });

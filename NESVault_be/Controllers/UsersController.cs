@@ -34,11 +34,19 @@ namespace NESVault_be.Controllers
         // ----- GET USERS BY ID ----- //
         // GET: api/Users/5
         [HttpGet("{id}", Name = "GetUserById")]
-        public ActionResult GetUserById(int id)
+        public ActionResult GetUserById(string id)
         {
-            var user = _repo.GetUserByUserId(id);
-            return Ok(user);
+            var user = _repo.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(user);
+            }
         }
+
 
         // ----- ADD NEW USER ----- //
         // POST: api/Users
@@ -59,10 +67,10 @@ namespace NESVault_be.Controllers
         // ----- EDIT USER ----- //
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public ActionResult<EditUserRequest> UpdateUser(int id, [FromBody] EditUserRequest updatedUserObj)
+        public ActionResult<EditUserRequest> UpdateUser(string id, [FromBody] EditUserRequest updatedUserObj)
         {
             var jwtFirebaseId = UserId;
-            User submittingUser = _repo.GetUserByUserId(id);
+            User submittingUser = _repo.GetUserById(id);
             if (updatedUserObj.FireBaseUid != jwtFirebaseId == false)
             {
                 // return 401 as the User they are passing in is not the same as the one making the request

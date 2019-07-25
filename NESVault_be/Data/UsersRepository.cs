@@ -45,7 +45,7 @@ namespace NESVault_be.Data
         }
 
         // GET USER BY FIREBASE ID //
-        public User GetUserByFireBaseId(string id)
+        public User GetUserById(string id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -61,30 +61,35 @@ namespace NESVault_be.Data
                 {
                     return selectedUser;
                 }
+                else
+                {
+                    return null;
+                }
+            
             }
             throw new Exception("NESVault User Not Found");
         }
 
         // GET USER BY USER ID //
-        public User GetUserByUserId(int id)
-        {
-            using (var db = new SqlConnection(_connectionString))
-            {
-                var getUserByIdQuery = @"
-                    SELECT
-                       *
-                    FROM [Users] u
-                    WHERE u.id = @id";
+        //public User GetUserByUserId(int id)
+        //{
+        //    using (var db = new SqlConnection(_connectionString))
+        //    {
+        //        var getUserByIdQuery = @"
+        //            SELECT
+        //               *
+        //            FROM [Users] u
+        //            WHERE u.id = @id";
 
-                var selectedUser = db.QueryFirstOrDefault<User>(getUserByIdQuery, new { id });
+        //        var selectedUser = db.QueryFirstOrDefault<User>(getUserByIdQuery, new { id });
 
-                if (selectedUser != null)
-                {
-                    return selectedUser;
-                }
-            }
-            throw new Exception("NESVault User Not Found");
-        }
+        //        if (selectedUser != null)
+        //        {
+        //            return selectedUser;
+        //        }
+        //    }
+        //    throw new Exception("NESVault User Not Found");
+        //}
 
         // ADD NEW USER //
         public User AddNewUser(CreateUserRequest newUserObj)
@@ -92,9 +97,9 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(_connectionString))
             {
                 var newUserQuery = @"
-                        INSERT INTO [Users] (UserName, FirstName, LastName, Email, FireBaseUid)
+                        INSERT INTO [Users] (UserName, FirstName, LastName, Email, FireBaseUid, IsDeleted)
                         OUTPUT Inserted.*
-                            VALUES(@UserName, @FirstName, @LastName, @Email, @FireBaseUid)";
+                            VALUES(@UserName, @FirstName, @LastName, @Email, @FireBaseUid, @IsDeleted)";
 
                 var newUser = db.QueryFirstOrDefault<User>(newUserQuery, new
                 {
