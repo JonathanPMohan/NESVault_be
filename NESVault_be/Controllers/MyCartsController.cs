@@ -22,10 +22,10 @@ namespace NESVault_be.Controllers
 
         // ----- GET ALL MYCARTS ----- //
         // GET: api/MyCarts
-        [HttpGet]
-        public ActionResult GetAllMyCarts()
+        [HttpGet("mycollection/{id}")]
+        public ActionResult GetAllMyCarts(int id)
         {
-            var myCarts = _myCartRepository.GetMyCarts();
+            var myCarts = _myCartRepository.GetMyCarts(id);
 
             return Ok(myCarts);
         }

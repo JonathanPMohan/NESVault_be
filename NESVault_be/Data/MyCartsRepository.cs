@@ -42,11 +42,12 @@ namespace NESVault_be.Data
 
         // Get All MyCarts Command //
 
-        public IEnumerable<MyCart> GetMyCarts()
+        public IEnumerable<MyCart> GetMyCarts(int id)
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myCarts = db.Query<MyCart>("select id, userId, cartsId, imageUrl from myCarts").ToList();
+                var myCarts = db.Query<MyCart>("select id, userId, cartsId, imageUrl from myCarts where userId = @id",
+                        new { id }).ToList();
 
 
                 return myCarts;
