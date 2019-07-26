@@ -30,7 +30,7 @@ namespace NESVault_be.Data
                  CartId,
                  FROM [Wishlist]";
 
-                var allWishLists = db.Query<User>(getAllWishListsQuery).ToList();
+                var allWishLists = db.Query<WishList>(getAllWishListsQuery).ToList();
 
                 if (allWishLists != null)
                 {
@@ -40,7 +40,7 @@ namespace NESVault_be.Data
             throw new Exception("No NESVault Wish Lists Found");
         }
 
-        // GET WISH LIST BY FIREBASE ID //
+        // GET WISH LIST BY WISH LIST ID //
         public WishList GetWishListById(int id)
         {
             using (var db = new SqlConnection(_connectionString))
@@ -51,7 +51,7 @@ namespace NESVault_be.Data
                     FROM [Wishlist] w
                     WHERE w.Id = @id";
 
-                var selectedWishList = db.QueryFirstOrDefault<User>(getWishListByIdQuery, new { id });
+                var selectedWishList = db.QueryFirstOrDefault<WishList>(getWishListByIdQuery, new { id });
 
                 if (selectedWishList != null)
                 {
@@ -66,26 +66,18 @@ namespace NESVault_be.Data
             throw new Exception("NESVault User Not Found");
         }
 
-        // GET USER BY USER ID //
-        //public User GetUserByUserId(int id)
-        //{
-        //    using (var db = new SqlConnection(_connectionString))
-        //    {
-        //        var getUserByIdQuery = @"
-        //            SELECT
-        //               *
-        //            FROM [Users] u
-        //            WHERE u.id = @id";
+        // GET WISHLIST BY USER ID//
+        public IEnumerable<WishList> GetMyWishList(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var myWishList = db.Query<WishList>("select id, userId, cartsId from wishlist where userId = @userid",
+                        new { id }).ToList();
 
-        //        var selectedUser = db.QueryFirstOrDefault<User>(getUserByIdQuery, new { id });
 
-        //        if (selectedUser != null)
-        //        {
-        //            return selectedUser;
-        //        }
-        //    }
-        //    throw new Exception("NESVault User Not Found");
-        //}
+                return myWishList;
+            }
+        }
 
         // ADD NEW WISH LIST //
         public WishList AddNewWishList(CreateWishListRequest newWishList)
@@ -97,15 +89,15 @@ namespace NESVault_be.Data
                         OUTPUT Inserted.*
                             VALUES(@UserId, @CartId)";
 
-                var newWishList = db.QueryFirstOrDefault<WishList>(newWishListQuery, new
+                var MyNewWishList = db.QueryFirstOrDefault<WishList>(newWishListQuery, new
                 {
                     newWishList.UserId,
                     newWishList.CartId,
                 });
 
-                if (newWishList != null)
+                if (MyNewWishList != null)
                 {
-                    return newWishList;
+                    return MyNewWishList;
                 }
             }
             throw new Exception("NESVault Wish List Not Created");
