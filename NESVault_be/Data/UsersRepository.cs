@@ -29,6 +29,7 @@ namespace NESVault_be.Data
                  UserName,
                  FirstName,
                  LastName,
+                 FavoriteGame,
                  Email,
                  FireBaseUid,
                  IsDeleted
@@ -97,9 +98,9 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(_connectionString))
             {
                 var newUserQuery = @"
-                        INSERT INTO [Users] (UserName, FirstName, LastName, Email, FireBaseUid, IsDeleted)
+                        INSERT INTO [Users] (UserName, FirstName, LastName, FavoriteGame, Email, FireBaseUid, IsDeleted)
                         OUTPUT Inserted.*
-                            VALUES(@UserName, @FirstName, @LastName, @Email, @FireBaseUid, @IsDeleted)";
+                            VALUES(@UserName, @FirstName, @LastName, @FavoriteGame, @Email, @FireBaseUid, @IsDeleted)";
 
                 var newUser = db.QueryFirstOrDefault<User>(newUserQuery, new
                 {
@@ -107,6 +108,7 @@ namespace NESVault_be.Data
                     newUserObj.FirstName,
                     newUserObj.LastName,
                     newUserObj.Email,
+                    newUserObj.FavoriteGame,
                     newUserObj.FireBaseUid,
                     newUserObj.IsDeleted,
                 });
@@ -154,7 +156,8 @@ namespace NESVault_be.Data
                     SET 
                       [UserName] = @userName,
                       [FirstName] = @firstName, 
-                      [LastName] = @lastName, 
+                      [LastName] = @lastName,
+                      [FavoriteGame] = @favoriteGame,
                       [Email] = @email, 
                       [FireBaseUid] = @firebaseUid,
                       [IsDeleted] = @isDeleted 
