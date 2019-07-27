@@ -12,17 +12,14 @@ namespace NESVault_be.Data
 {
     public class WishListRepository
     {
-        readonly string _connectionString;
+        const string ConnectionString = "Server = localhost; Database = NesVault; Trusted_Connection = True;";
 
-        public WishListRepository(IOptions<DbConfiguration> dbConfig)
-        {
-            _connectionString = dbConfig.Value.ConnectionString;
-        }
+        
 
         // GET ALL WISHLISTS //
         public List<WishList> GetAllWishLists()
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var getAllWishListsQuery = @"
                  SELECT id,
@@ -43,7 +40,7 @@ namespace NESVault_be.Data
         // GET WISH LIST BY WISH LIST ID //
         public WishList GetWishListById(int id)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var getWishListByIdQuery = @"
                     SELECT 
@@ -69,7 +66,7 @@ namespace NESVault_be.Data
         // GET WISHLIST BY USER ID//
         public IEnumerable<WishList> GetMyWishList(int id)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var myWishList = db.Query<WishList>("select id, userId, cartsId from wishlist where userId = @userid",
                         new { id }).ToList();
@@ -82,7 +79,7 @@ namespace NESVault_be.Data
         // ADD NEW WISH LIST //
         public WishList AddNewWishList(CreateWishListRequest newWishList)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var newWishListQuery = @"
                         INSERT INTO [Wishlist] (UserId, CartId)
@@ -106,7 +103,7 @@ namespace NESVault_be.Data
         // DELETE WISH LIST //
         public void DeleteWishList(int id)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var deleteUserQuery = @"
                     UPDATE 
@@ -128,9 +125,9 @@ namespace NESVault_be.Data
         }
 
         // EDIT WISH LIST //
-        public UpdateWishListRequest UpdateWishList(UpdateWishListRequest updatedWishList)
+        public WishList UpdateWishList(WishList updatedWishList)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var editWishListQuery = @"
                     UPDATE 
