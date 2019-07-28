@@ -10,6 +10,9 @@ namespace NESVault_be.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public int CartsId { get; set; }
+        public string Name { get; set; }
         public string ImageUrl { get; set; }
+        public string Genre { get; set; }
+        public DateTime ReleaseDate { get; set; }
     }
 }
