@@ -25,6 +25,10 @@ namespace NESVault_be.Data
                  SELECT id,
                  UserId,
                  CartId,
+                 Name,
+                 Genre,
+                 ReleaseDate,
+                 ImageUrl,
                  FROM [Wishlist]";
 
                 var allWishLists = db.Query<WishList>(getAllWishListsQuery).ToList();
@@ -60,7 +64,7 @@ namespace NESVault_be.Data
                 }
 
             }
-            throw new Exception("NESVault User Not Found");
+            throw new Exception("NESVault WishList Not Found");
         }
 
         // GET WISHLIST BY USER ID//
@@ -68,7 +72,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myWishList = db.Query<WishList>("select id, userId, cartsId from wishlist where userId = @userid",
+                var myWishList = db.Query<WishList>("select id, userId, cartsId, imageUrl, name, genre, releaseDate from wishlist where userId = @id",
                         new { id }).ToList();
 
 
@@ -82,14 +86,18 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(ConnectionString))
             {
                 var newWishListQuery = @"
-                        INSERT INTO [Wishlist] (UserId, CartId)
+                        INSERT INTO [Wishlist] (UserId, CartId, Name, Genre, ReleaseDate, ImageUrl)
                         OUTPUT Inserted.*
-                            VALUES(@UserId, @CartId)";
+                            VALUES(@UserId, @CartId, @name, @genre, @releaseDate, @imageUrl)";
 
                 var MyNewWishList = db.QueryFirstOrDefault<WishList>(newWishListQuery, new
                 {
                     newWishList.UserId,
                     newWishList.CartId,
+                    newWishList.Name,
+                    newWishList.Genre,
+                    newWishList.ReleaseDate,
+                    newWishList.ImageUrl,
                 });
 
                 if (MyNewWishList != null)
@@ -134,7 +142,11 @@ namespace NESVault_be.Data
                       [Wishlist] 
                     SET 
                       [UserId] = @userId,
-                      [CartId] = @cartId
+                      [CartId] = @cartId,
+                      [Name] = @name,
+                      [Genre] = @genre,
+                      [ReleaseDate] = @releaseDate,
+                      [ImageUrl] = @imageUrl
                     WHERE 
                       id = @id";
 

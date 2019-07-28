@@ -22,12 +22,13 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(ConnectionString))
             {
                 var newCart = db.QueryFirstOrDefault<Cart>(@"
-                    Insert into carts (name, genre, releasedate, loose, cib, new)
+                    Insert into carts (name, imageUrl, genre, releasedate, loose, cib, new)
                     Output inserted.*
-                    Values(@name, @genre, @releasedate, @loose, @cib, @new)",
+                    Values(@name, @imageUrl, @genre, @releasedate, @loose, @cib, @new)",
                     new
                     {
                         createRequest.Name,
+                        createRequest.ImageUrl,
                         createRequest.Genre,
                         createRequest.ReleaseDate,
                         createRequest.Loose,
@@ -51,7 +52,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var carts = db.Query<Cart>("select id, name, genre, releaseDate, loose, cib, new from carts").ToList();
+                var carts = db.Query<Cart>("select id, name, imageUrl, genre, releaseDate, loose, cib, new from carts").ToList();
 
 
                 return carts;
@@ -76,7 +77,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var selectedGenre = db.Query<Cart>("select id, name, releaseDate, loose, cib, new from carts where genre = @genre", new { genre });
+                var selectedGenre = db.Query<Cart>("select id, name, imageUrl, genre, releaseDate, loose, cib, new from carts where genre = @genre", new { genre });
 
 
                 return selectedGenre;
@@ -93,7 +94,7 @@ namespace NESVault_be.Data
             {
 
 
-                var selectedCart = db.QueryFirstOrDefault<Cart>("select id, name, genre, releaseDate, loose, cib, new from carts where Id = @id", new { Id });
+                var selectedCart = db.QueryFirstOrDefault<Cart>("select id, name, imageUrl, genre, releaseDate, loose, cib, new from carts where Id = @id", new { Id });
 
 
                 return selectedCart;
@@ -126,6 +127,7 @@ namespace NESVault_be.Data
             {
                 var updateQuery = @"Update Carts
                                 Set Name = @name,
+                                ImageUrl = @imageUrl,
                                 Genre = @genre,
                                 ReleaseDate = @releaseDate,
                                 Loose = @loose,
