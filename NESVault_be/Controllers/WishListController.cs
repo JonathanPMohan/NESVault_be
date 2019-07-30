@@ -28,7 +28,7 @@ namespace NESVault_be.Controllers
 
         // GET WISHLIST BY USER ID //
         // GET: api/WishList/
-        [HttpGet("wishlist")]
+        [HttpGet("{id}")]
         public ActionResult GetMyWishList(int Id)
         {
             var myWishList = _wishListRepository.GetMyWishList(Id);

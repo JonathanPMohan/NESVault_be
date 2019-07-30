@@ -72,13 +72,14 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myWishList = db.Query<WishList>("select id, userId, cartsId, imageUrl, name, genre, releaseDate from wishlist where userId = @id",
+                var myWishList = db.Query<WishList>("select id, userId, cartId, imageUrl, name, genre, releaseDate from wishlist where userId = @id",
                         new { id }).ToList();
 
 
                 return myWishList;
             }
         }
+        
 
         // ADD NEW WISH LIST //
         public WishList AddNewWishList(CreateWishListRequest newWishList)
