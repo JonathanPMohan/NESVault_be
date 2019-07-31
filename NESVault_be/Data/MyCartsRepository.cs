@@ -17,12 +17,13 @@ namespace NESVault_be.Data
 
         public MyCart AddMyCart(CreateMyCartRequest createRequest)
         {
+            createRequest.Loose = System.Convert.ToDecimal(createRequest.Loose);
             using (var db = new SqlConnection(ConnectionString))
             {
                 var newMyCart = db.QueryFirstOrDefault<MyCart>(@"
-                    Insert into myCarts (userId, cartsId, ImageUrl, name, genre, releaseDate)
+                    Insert into myCarts (userId, cartsId, ImageUrl, name, genre, releaseDate, loose)
                     Output inserted.*
-                    Values(@userId, @cartsId, @imageUrl, @name, @genre, @releaseDate)",
+                    Values(@userId, @cartsId, @imageUrl, @name, @genre, @releaseDate, @loose)",
                     new
                     {
                         createRequest.UserId,
@@ -31,6 +32,7 @@ namespace NESVault_be.Data
                         createRequest.Name,
                         createRequest.Genre,
                         createRequest.ReleaseDate,
+                        createRequest.Loose,
                     });
 
                 if (newMyCart != null)
@@ -49,7 +51,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myCarts = db.Query<MyCart>("select id, userId, cartsId, imageUrl, name, genre, releaseDate from myCarts where userId = @id",
+                var myCarts = db.Query<MyCart>("select id, userId, cartsId, imageUrl, name, genre, releaseDate, loose from myCarts where userId = @id",
                         new { id }).ToList();
 
 
