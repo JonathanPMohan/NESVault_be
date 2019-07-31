@@ -72,7 +72,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myWishList = db.Query<WishList>("select id, userId, cartId, imageUrl, name, genre, releaseDate from wishlist where userId = @id",
+                var myWishList = db.Query<WishList>("select id, userId, cartId, imageUrl, name, genre, releaseDate, loose from wishlist where userId = @id",
                         new { id }).ToList();
 
 
@@ -82,23 +82,25 @@ namespace NESVault_be.Data
         
 
         // ADD NEW WISH LIST //
-        public WishList AddNewWishList(CreateWishListRequest newWishList)
+        public WishList AddNewWishList(CreateWishListRequest createRequest)
         {
+            createRequest.Loose = System.Convert.ToDecimal(createRequest.Loose);
             using (var db = new SqlConnection(ConnectionString))
             {
                 var newWishListQuery = @"
-                        INSERT INTO [Wishlist] (UserId, CartId, Name, Genre, ReleaseDate, ImageUrl)
+                        INSERT INTO [Wishlist] (UserId, CartId, Name, Genre, ReleaseDate, ImageUrl, Loose)
                         OUTPUT Inserted.*
-                            VALUES(@UserId, @CartId, @name, @genre, @releaseDate, @imageUrl)";
+                            VALUES(@UserId, @CartId, @name, @genre, @releaseDate, @imageUrl, @loose)";
 
                 var MyNewWishList = db.QueryFirstOrDefault<WishList>(newWishListQuery, new
                 {
-                    newWishList.UserId,
-                    newWishList.CartId,
-                    newWishList.Name,
-                    newWishList.Genre,
-                    newWishList.ReleaseDate,
-                    newWishList.ImageUrl,
+                    createRequest.UserId,
+                    createRequest.CartId,
+                    createRequest.Name,
+                    createRequest.Genre,
+                    createRequest.ReleaseDate,
+                    createRequest.ImageUrl,
+                    createRequest.Loose,
                 });
 
                 if (MyNewWishList != null)
