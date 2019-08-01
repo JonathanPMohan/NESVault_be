@@ -51,7 +51,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myCarts = db.Query<MyCart>("select id, userId, cartsId, imageUrl, name, genre, releaseDate, loose from myCarts where userId = @id",
+                var myCarts = db.Query<MyCart>("select * from myCarts where userId = @id",
                         new { id }).ToList();
 
 
@@ -83,7 +83,7 @@ namespace NESVault_be.Data
             {
 
 
-                var mySelectedCart = db.QueryFirstOrDefault<MyCart>("select id, userId, cartsId, imageUrl, name, genre, releaseDate from myCarts where Id = @id", new { Id });
+                var mySelectedCart = db.QueryFirstOrDefault<MyCart>("select * from myCarts where Id = @id", new { Id });
 
 
                 return mySelectedCart;

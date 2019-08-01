@@ -79,7 +79,22 @@ namespace NESVault_be.Data
                 return myWishList;
             }
         }
-        
+
+        // Get Single MyWishListCart By ID //
+
+        public MyCart GetMyWishListCartById(int Id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+
+
+                var mySelectedWishListCart = db.QueryFirstOrDefault<MyCart>("select * from wishlist where Id = @id", new { Id });
+
+
+                return mySelectedWishListCart;
+            }
+        }
+
 
         // ADD NEW WISH LIST //
         public WishList AddNewWishList(CreateWishListRequest createRequest)

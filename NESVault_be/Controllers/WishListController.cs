@@ -36,6 +36,18 @@ namespace NESVault_be.Controllers
             return Ok(myWishList);
         }
 
+        //// GET WISHLIST CART BY CART ID //
+        //// GET: api/WishList/5
+        //[HttpGet("{id}")]
+        //public ActionResult GetMyWishListCart(int Id)
+        //{
+        //    var myWishListCart = _wishListRepository.GetMyWishListCartById(Id);
+
+        //    return Ok(myWishListCart);
+        //}
+
+
+
         // ----- ADD NEW WISH LIST ---- //
         // POST: api/WishList
         [HttpPost]
