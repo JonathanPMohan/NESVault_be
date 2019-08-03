@@ -89,7 +89,7 @@ namespace NESVault_be.Controllers
 
         // ----- DELETE My CART---- //
         // DELETE: api/MyCarts/Delete/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public ActionResult DeleteMyCart(int id)
         {
             _myCartRepository.DeleteMyCart(id);
