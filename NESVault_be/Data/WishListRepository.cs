@@ -126,24 +126,18 @@ namespace NESVault_be.Data
             throw new Exception("NESVault Wish List Not Created");
         }
 
-        // DELETE WISH LIST //
-        public void DeleteWishList(int id)
+        // DELETE WISH LIST ITEM //
+        public void DeleteWishListCart(int id)
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var deleteUserQuery = @"
-                    UPDATE 
-                      [Wishlist] 
-                    SET 
-                      [IsDeleted] = 1 
-                    WHERE 
-                      id = @id";
+                var deleteUserQuery = "DELETE wishlist WHERE id = @id";
 
                 var rowsAffected = db.Execute(deleteUserQuery, new { id });
 
                 if (rowsAffected != 1)
                 {
-                    throw new Exception("Error Deleting The NESVault Wish List");
+                    throw new Exception("Error Deleting The NESVault Wish List Cart");
                 }
             }
 

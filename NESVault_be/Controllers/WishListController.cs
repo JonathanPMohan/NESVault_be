@@ -81,10 +81,10 @@ namespace NESVault_be.Controllers
 
         // ----- DELETE WISH LIST ITEM---- //
         // DELETE: api/WishList/Delete/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public ActionResult DeleteWishList(int id)
         {
-            _wishListRepository.DeleteWishList(id);
+            _wishListRepository.DeleteWishListCart(id);
 
             return Ok("Your NESVault Wish List Item Has Been Deleted.");
         }
