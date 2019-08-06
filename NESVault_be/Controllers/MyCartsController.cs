@@ -40,12 +40,12 @@ namespace NESVault_be.Controllers
         //    return Ok(myCartGenres);
         //}
 
-        // ----- GET ALL MY CARTS BY GENRE ID ----- //
-        // GET: api/MyCarts/Genre/5
-        [HttpGet("genre/{genreId}")]
-        public ActionResult GetMyCartsByGenre(string genre)
+        // ----- GET ALL MY CARTS BY GENRE ----- //
+        // GET: api/MyCarts/Genre
+        [HttpGet("genre/{id}")]
+        public ActionResult GetMyCartsByGenre(int id)
         {
-            var myCartSelectedGenre = _myCartRepository.GetMyCartsByGenre(genre);
+            var myCartSelectedGenre = _myCartRepository.GetMyCartsByGenre(id);
 
             return Ok(myCartSelectedGenre);
         }

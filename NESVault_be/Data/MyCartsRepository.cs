@@ -62,11 +62,11 @@ namespace NESVault_be.Data
 
         // Get MyCarts By Genre //
 
-        public IEnumerable<MyCart> GetMyCartsByGenre(string genre)
+        public IEnumerable<MyCart> GetMyCartsByGenre(int id)
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myCartSelectedGenre = db.Query<MyCart>("select id, userId, cartsId, imageUrl, name, genre, releaseDate from myCarts where genre = @genre", new { genre });
+                var myCartSelectedGenre = db.Query<MyCart>("select genre from myCarts where userId= @id", new { id }).ToList();
 
 
                 return myCartSelectedGenre;
@@ -97,7 +97,7 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(ConnectionString))
             {
                 var parameter = new { Id = Id };
-                var deleteQuery = "DELETE myCarts WHERE id = @id";
+                var deleteQuery = "DELETE myCarts SET isDeleted = 1 WHERE id = @id";
 
                 var rowsAffected = db.Execute(deleteQuery, parameter);
 
