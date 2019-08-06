@@ -15,5 +15,6 @@ namespace NESVault_be.Models
         public string Genre { get; set; }
         public DateTime ReleaseDate { get; set; }
         public decimal Loose { get; set; }
+        public int ProductId { get; set; }
     }
 }

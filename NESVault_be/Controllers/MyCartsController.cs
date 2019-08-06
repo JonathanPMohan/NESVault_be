@@ -30,15 +30,6 @@ namespace NESVault_be.Controllers
             return Ok(myCarts);
         }
 
-        //// ----- GET ALL MY CART GENRES ---- //
-        //// GET: api/MyCarts/Genres
-        //[HttpGet("genres")]
-        //public ActionResult GetMyCartsByGenre()
-        //{
-        //    var myCartGenres = _myCartRepository.GetMyCartsByGenre();
-
-        //    return Ok(myCartGenres);
-        //}
 
         // ----- GET ALL MY CARTS BY GENRE ----- //
         // GET: api/MyCarts/Genre
