@@ -98,7 +98,7 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(ConnectionString))
             {
                 var parameter = new { Id = Id };
-                var deleteQuery = "DELETE myCarts SET isDeleted = 1 WHERE id = @id";
+                var deleteQuery = "DELETE myCarts WHERE id = @id";
 
                 var rowsAffected = db.Execute(deleteQuery, parameter);
 
