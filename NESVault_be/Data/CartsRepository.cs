@@ -22,9 +22,9 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(ConnectionString))
             {
                 var newCart = db.QueryFirstOrDefault<Cart>(@"
-                    Insert into carts (name, imageUrl, genre, releasedate, loose, cib, new)
+                    Insert into carts (name, imageUrl, genre, releasedate, loose, cib, new, productId)
                     Output inserted.*
-                    Values(@name, @imageUrl, @genre, @releasedate, @loose, @cib, @new)",
+                    Values(@name, @imageUrl, @genre, @releasedate, @loose, @cib, @new, @productId)",
                     new
                     {
                         createRequest.Name,
@@ -34,6 +34,7 @@ namespace NESVault_be.Data
                         createRequest.Loose,
                         createRequest.Cib,
                         createRequest.New,
+                        createRequest.ProductId,
                     });
 
                 if (newCart != null)
@@ -52,7 +53,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var carts = db.Query<Cart>("select id, name, imageUrl, genre, releaseDate, loose, cib, new from carts").ToList();
+                var carts = db.Query<Cart>("select id, name, imageUrl, genre, releaseDate, loose, cib, new, productId from carts").ToList();
 
 
                 return carts;
@@ -94,7 +95,7 @@ namespace NESVault_be.Data
             {
 
 
-                var selectedCart = db.QueryFirstOrDefault<Cart>("select id, name, imageUrl, genre, releaseDate, loose, cib, new from carts where Id = @id", new { Id });
+                var selectedCart = db.QueryFirstOrDefault<Cart>("select id, name, imageUrl, genre, releaseDate, loose, cib, new, productId from carts where Id = @id", new { Id });
 
 
                 return selectedCart;

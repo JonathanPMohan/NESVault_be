@@ -15,5 +15,6 @@ namespace NESVault_be.Models
         public decimal Loose { get; set; }
         public decimal Cib { get; set; }
         public decimal New { get; set; }
+        public int ProductId { get; set; }
     }
 }

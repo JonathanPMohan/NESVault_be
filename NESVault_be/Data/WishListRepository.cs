@@ -72,7 +72,7 @@ namespace NESVault_be.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var myWishList = db.Query<WishList>("select id, userId, cartId, imageUrl, name, genre, releaseDate, loose from wishlist where userId = @id",
+                var myWishList = db.Query<WishList>("select id, userId, cartId, imageUrl, name, genre, releaseDate, loose, productId from wishlist where userId = @id",
                         new { id }).ToList();
 
 
@@ -103,9 +103,9 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(ConnectionString))
             {
                 var newWishListQuery = @"
-                        INSERT INTO [Wishlist] (UserId, CartId, Name, Genre, ReleaseDate, ImageUrl, Loose)
+                        INSERT INTO [Wishlist] (UserId, CartId, Name, Genre, ReleaseDate, ImageUrl, Loose, productId)
                         OUTPUT Inserted.*
-                            VALUES(@UserId, @CartId, @name, @genre, @releaseDate, @imageUrl, @loose)";
+                            VALUES(@UserId, @CartId, @name, @genre, @releaseDate, @imageUrl, @loose, @productId)";
 
                 var MyNewWishList = db.QueryFirstOrDefault<WishList>(newWishListQuery, new
                 {
@@ -116,6 +116,7 @@ namespace NESVault_be.Data
                     createRequest.ReleaseDate,
                     createRequest.ImageUrl,
                     createRequest.Loose,
+                    createRequest.ProductId,
                 });
 
                 if (MyNewWishList != null)

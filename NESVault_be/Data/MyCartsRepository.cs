@@ -21,9 +21,9 @@ namespace NESVault_be.Data
             using (var db = new SqlConnection(ConnectionString))
             {
                 var newMyCart = db.QueryFirstOrDefault<MyCart>(@"
-                    Insert into myCarts (userId, cartsId, ImageUrl, name, genre, releaseDate, loose)
+                    Insert into myCarts (userId, cartsId, ImageUrl, name, genre, releaseDate, loose, productId)
                     Output inserted.*
-                    Values(@userId, @cartsId, @imageUrl, @name, @genre, @releaseDate, @loose)",
+                    Values(@userId, @cartsId, @imageUrl, @name, @genre, @releaseDate, @loose, @productId)",
                     new
                     {
                         createRequest.UserId,
@@ -33,6 +33,7 @@ namespace NESVault_be.Data
                         createRequest.Genre,
                         createRequest.ReleaseDate,
                         createRequest.Loose,
+                        createRequest.ProductId,
                     });
 
                 if (newMyCart != null)
