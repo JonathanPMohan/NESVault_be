@@ -13,6 +13,7 @@ namespace NESVault_be.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string FireBaseUid { get; set; }
+        public string FavoriteGame { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

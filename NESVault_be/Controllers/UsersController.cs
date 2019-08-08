@@ -69,13 +69,13 @@ namespace NESVault_be.Controllers
         [HttpPut("{id}")]
         public ActionResult<EditUserRequest> UpdateUser(string id, [FromBody] EditUserRequest updatedUserObj)
         {
-            var jwtFirebaseId = UserId;
-            User submittingUser = _repo.GetUserById(id);
-            if (updatedUserObj.FireBaseUid != jwtFirebaseId == false)
-            {
-                // return 401 as the User they are passing in is not the same as the one making the request
-                return Unauthorized();
-            }
+            //var jwtFirebaseId = UserId;
+            //User submittingUser = _repo.GetUserById(id);
+            //if (updatedUserObj.FireBaseUid != jwtFirebaseId == false)
+            //{
+            //    // return 401 as the User they are passing in is not the same as the one making the request
+            //    return Unauthorized();
+            //}
 
             if (!_editUserValidator.Validate(updatedUserObj))
             {
